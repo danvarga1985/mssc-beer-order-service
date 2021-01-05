@@ -1,6 +1,6 @@
 package com.danvarga.msscbeerorderservice.services;
 
-import com.danvarga.msscbeerorderservice.bootstrap.BeerOrderBootStrap;
+import com.danvarga.msscbeerorderservice.bootstrap.BeerOrderLoader;
 import com.danvarga.msscbeerorderservice.domain.Customer;
 import com.danvarga.msscbeerorderservice.repositories.BeerOrderRepository;
 import com.danvarga.msscbeerorderservice.repositories.CustomerRepository;
@@ -31,16 +31,16 @@ public class TastingRoomService {
         this.beerOrderService = beerOrderService;
         this.beerOrderRepository = beerOrderRepository;
 
-        beerUpcs.add(BeerOrderBootStrap.BEER_1_UPC);
-        beerUpcs.add(BeerOrderBootStrap.BEER_2_UPC);
-        beerUpcs.add(BeerOrderBootStrap.BEER_3_UPC);
+        beerUpcs.add(BeerOrderLoader.BEER_1_UPC);
+        beerUpcs.add(BeerOrderLoader.BEER_2_UPC);
+        beerUpcs.add(BeerOrderLoader.BEER_3_UPC);
     }
 
     @Transactional
     @Scheduled(fixedRate = 2000) //run every 2 seconds
     public void placeTastingRoomOrder(){
 
-        List<Customer> customerList = customerRepository.findAllByCustomerNameLike(BeerOrderBootStrap.TASTING_ROOM);
+        List<Customer> customerList = customerRepository.findAllByCustomerNameLike(BeerOrderLoader.TASTING_ROOM);
 
         if (customerList.size() == 1){ //should be just one
             doPlaceOrder(customerList.get(0));
