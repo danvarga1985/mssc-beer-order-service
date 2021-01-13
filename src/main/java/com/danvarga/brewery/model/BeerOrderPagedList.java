@@ -1,4 +1,4 @@
-package com.danvarga.msscbeerorderservice.web.model;
+package com.danvarga.brewery.model;
 
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

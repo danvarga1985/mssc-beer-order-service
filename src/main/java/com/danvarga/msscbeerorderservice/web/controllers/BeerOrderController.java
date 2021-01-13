@@ -1,8 +1,8 @@
 package com.danvarga.msscbeerorderservice.web.controllers;
 
 import com.danvarga.msscbeerorderservice.services.BeerOrderService;
-import com.danvarga.msscbeerorderservice.web.model.BeerOrderDto;
-import com.danvarga.msscbeerorderservice.web.model.BeerOrderPagedList;
+import com.danvarga.brewery.model.BeerOrderDto;
+import com.danvarga.brewery.model.BeerOrderPagedList;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

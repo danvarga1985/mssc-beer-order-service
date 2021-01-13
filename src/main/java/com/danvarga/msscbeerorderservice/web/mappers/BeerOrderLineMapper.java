@@ -1,7 +1,7 @@
 package com.danvarga.msscbeerorderservice.web.mappers;
 
 import com.danvarga.msscbeerorderservice.domain.BeerOrderLine;
-import com.danvarga.msscbeerorderservice.web.model.BeerOrderLineDto;
+import com.danvarga.brewery.model.BeerOrderLineDto;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 
