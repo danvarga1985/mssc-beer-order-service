@@ -1,8 +1,8 @@
 package com.danvarga.msscbeerorderservice.web.mappers;
 
+import com.danvarga.brewery.model.BeerDto;
 import com.danvarga.msscbeerorderservice.domain.BeerOrderLine;
 import com.danvarga.msscbeerorderservice.services.beer.BeerService;
-import com.danvarga.msscbeerorderservice.services.beer.model.BeerDto;
 import com.danvarga.brewery.model.BeerOrderLineDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

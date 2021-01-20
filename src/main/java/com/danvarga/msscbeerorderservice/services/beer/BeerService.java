@@ -1,6 +1,7 @@
 package com.danvarga.msscbeerorderservice.services.beer;
 
-import com.danvarga.msscbeerorderservice.services.beer.model.BeerDto;
+
+import com.danvarga.brewery.model.BeerDto;
 
 import java.util.Optional;
 import java.util.UUID;
