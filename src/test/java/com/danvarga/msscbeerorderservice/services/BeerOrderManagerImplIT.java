@@ -1,6 +1,8 @@
 package com.danvarga.msscbeerorderservice.services;
 
 import com.danvarga.brewery.model.BeerDto;
+import com.danvarga.brewery.model.events.AllocationFailureEvent;
+import com.danvarga.msscbeerorderservice.config.JmsConfig;
 import com.danvarga.msscbeerorderservice.domain.BeerOrder;
 import com.danvarga.msscbeerorderservice.domain.BeerOrderLine;
 import com.danvarga.msscbeerorderservice.domain.BeerOrderStatusEnum;
@@ -29,6 +31,7 @@ import static com.github.jenspiegsa.wiremockextension.ManagedWireMockServer.with
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.okJson;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.jgroups.util.Util.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -143,6 +146,12 @@ public class BeerOrderManagerImplIT {
 
             assertEquals(BeerOrderStatusEnum.ALLOCATION_EXCEPTION, foundBeerOrder.getOrderStatus());
         });
+
+        AllocationFailureEvent allocationFailureEvent =
+                (AllocationFailureEvent) jmsTemplate.receiveAndConvert(JmsConfig.ALLOCATE_FAILURE_QUEUE);
+
+        assertNotNull(allocationFailureEvent);
+        assertThat(allocationFailureEvent.getOrderId()).isEqualTo(savedBeerOrder.getId());
     }
 
     @Test
