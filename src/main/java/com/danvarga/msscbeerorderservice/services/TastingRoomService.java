@@ -22,14 +22,11 @@ public class TastingRoomService {
 
     private final CustomerRepository customerRepository;
     private final BeerOrderService beerOrderService;
-    private final BeerOrderRepository beerOrderRepository;
     private final List<String> beerUpcs = new ArrayList<>(3);
 
-    public TastingRoomService(CustomerRepository customerRepository, BeerOrderService beerOrderService,
-                              BeerOrderRepository beerOrderRepository) {
+    public TastingRoomService(CustomerRepository customerRepository, BeerOrderService beerOrderService) {
         this.customerRepository = customerRepository;
         this.beerOrderService = beerOrderService;
-        this.beerOrderRepository = beerOrderRepository;
 
         beerUpcs.add(BeerOrderLoader.BEER_1_UPC);
         beerUpcs.add(BeerOrderLoader.BEER_2_UPC);
@@ -37,7 +34,7 @@ public class TastingRoomService {
     }
 
     @Transactional
-//    @Scheduled(fixedRate = 2000) //run every 2 seconds
+    @Scheduled(fixedRate = 2000) //run every 2 seconds
     public void placeTastingRoomOrder(){
 
         List<Customer> customerList = customerRepository.findAllByCustomerNameLike(BeerOrderLoader.TASTING_ROOM);
@@ -46,6 +43,8 @@ public class TastingRoomService {
             doPlaceOrder(customerList.get(0));
         } else {
             log.error("Too many or too few tasting room customers found");
+
+            customerList.forEach(customer -> log.debug(customer.toString()));
         }
     }
 

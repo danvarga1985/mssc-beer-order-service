@@ -47,10 +47,12 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 
     @Transactional
     @Override
-    public void processValidationResult(UUID beerOrderId, Boolean isValid) {
+    public void processValidationResult(UUID beerOrderId, Boolean isValid) throws InterruptedException {
         log.debug("Process Validation Result for beerOrderId: " + beerOrderId + " Valid? " + isValid);
 
-        Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
+//        Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
+        // Missing some Orders that otherwise exist in the DB. Hopefully just a temporary solution.
+        Optional<BeerOrder> beerOrderOptional = awaitForBeerOrderOptional(beerOrderId);
 
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
             if (isValid) {
@@ -177,7 +179,17 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
 
             }
         }
+    }
 
+    private Optional<BeerOrder> awaitForBeerOrderOptional(UUID beerOrderId) throws InterruptedException {
+        Optional<BeerOrder> returnOrder = beerOrderRepository.findById(beerOrderId);
+
+        // TODO: implement a more elegant solution. This kills cpu!
+        while (!returnOrder.isPresent()) {
+            // Wait for the database.
+        }
+
+        return returnOrder;
     }
 
     private StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> build(BeerOrder beerOrder) {

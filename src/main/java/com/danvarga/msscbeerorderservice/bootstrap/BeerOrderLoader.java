@@ -26,8 +26,8 @@ public class BeerOrderLoader implements CommandLineRunner {
     }
 
     private void loadCustomerData() {
-        if (customerRepository.count() == 0) {
-            Customer savedCustomer = customerRepository.save(Customer.builder()
+        if (customerRepository.findAllByCustomerNameLike(BeerOrderLoader.TASTING_ROOM).size() == 0) {
+            Customer savedCustomer = customerRepository.saveAndFlush(Customer.builder()
                     .customerName(TASTING_ROOM)
                     .apiKey(UUID.randomUUID())
                     .build());

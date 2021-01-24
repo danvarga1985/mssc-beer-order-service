@@ -18,7 +18,7 @@ public class ValidationResultListener {
     private final BeerOrderManager beerOrderManager;
 
     @JmsListener(destination = JmsConfig.VALIDATE_ORDER_RESPONSE_QUEUE)
-    public void listen(ValidateOrderResult result) {
+    public void listen(ValidateOrderResult result) throws InterruptedException {
         final UUID beerOrderId = result.getOrderId();
 
         log.debug("Validation Result from Order Id: " + beerOrderId);

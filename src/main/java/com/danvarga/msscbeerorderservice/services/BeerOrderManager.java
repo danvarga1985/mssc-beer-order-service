@@ -9,7 +9,7 @@ public interface BeerOrderManager {
 
     BeerOrder newBeerOrder(BeerOrder beerOrder);
 
-    void processValidationResult(UUID beerOrderId, Boolean isValid);
+    void processValidationResult(UUID beerOrderId, Boolean isValid) throws InterruptedException;
 
     void beerOrderAllocationPassed(BeerOrderDto beerOrder);
 
