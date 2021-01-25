@@ -50,9 +50,13 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     public void processValidationResult(UUID beerOrderId, Boolean isValid) throws InterruptedException {
         log.debug("Process Validation Result for beerOrderId: " + beerOrderId + " Valid? " + isValid);
 
-        Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
-        // Missing some Orders that otherwise exist in the DB. Hopefully just a temporary solution.
-//        Optional<BeerOrder> beerOrderOptional = awaitForBeerOrderOptional(beerOrderId);
+        /*
+         Won't find the otherwise existing Beer Order 75% of the time without Thread.sleep, running against a local
+         Docker MySQL instance. At 1-5 millisecond, it still misses at times - set it to 10 to behave as expected...
+         TODO: figure this out! Thread.sleep should be only a temporary solution!
+        */
+        Thread.sleep(10);
+        Optional<BeerOrder> beerOrderOptional = beerOrderRepository. findById(beerOrderId);
 
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
             if (isValid) {
