@@ -50,9 +50,9 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     public void processValidationResult(UUID beerOrderId, Boolean isValid) throws InterruptedException {
         log.debug("Process Validation Result for beerOrderId: " + beerOrderId + " Valid? " + isValid);
 
-//        Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
+        Optional<BeerOrder> beerOrderOptional = beerOrderRepository.findById(beerOrderId);
         // Missing some Orders that otherwise exist in the DB. Hopefully just a temporary solution.
-        Optional<BeerOrder> beerOrderOptional = awaitForBeerOrderOptional(beerOrderId);
+//        Optional<BeerOrder> beerOrderOptional = awaitForBeerOrderOptional(beerOrderId);
 
         beerOrderOptional.ifPresentOrElse(beerOrder -> {
             if (isValid) {

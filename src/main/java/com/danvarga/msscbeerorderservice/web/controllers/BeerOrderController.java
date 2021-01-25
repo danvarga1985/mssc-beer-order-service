@@ -1,5 +1,6 @@
 package com.danvarga.msscbeerorderservice.web.controllers;
 
+import com.danvarga.msscbeerorderservice.domain.Customer;
 import com.danvarga.msscbeerorderservice.services.BeerOrderService;
 import com.danvarga.brewery.model.BeerOrderDto;
 import com.danvarga.brewery.model.BeerOrderPagedList;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/customers/{customerId}/")
